@@ -19,6 +19,7 @@ ORANGE = (255,165, 0)
 GREY = (128,128,128)
 TURQUOISE = (64,224,208)
 
+score = [0, 0] # index 0 is red team and index 1 is blue team
 
 
 

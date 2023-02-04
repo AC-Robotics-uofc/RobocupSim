@@ -68,6 +68,9 @@ if __name__ == '__main__':
         if not robot1.hasball and (ball.getSpeed()[0] != 0):
             if WIDTH>ball.xpos+ball.radius and ball.xpos-ball.radius>0 and HEIGHT>ball.ypos+ball.radius and ball.ypos-ball.radius>0:
                 ball.move()
+                redGoal.scoreGoal(ball)
+                blueGoal.scoreGoal(ball)
+                
             else:#get it to bounce off walls
                 ball.setSpeed([0,0])
         algorithm(robot2, robot3,ball, blueGoal)
