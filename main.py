@@ -14,6 +14,7 @@ from Classes.Globals import * # to import all global variables
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 if __name__ == '__main__':
+    pygame.init()
     SPEED = 5
     RADIUS = 20
     GOALWIDTH = 30

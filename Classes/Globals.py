@@ -54,7 +54,10 @@ def draw_robots(win, robot_list):
 def draw(win, robot_list):
     win.fill(WHITE)
     draw_robots(win, robot_list)
+    draw_score(win, score)
     pygame.display.update()
+
+
 def updateBall(robot, ball):
 
     if robot.hasball:
@@ -106,3 +109,24 @@ def control(robot, event, ball):
                     robot.throwBall()
                 updateBall(robot, ball)
                 #print(robot.front[2])
+
+def draw_score(window, score):
+    # create a font object.
+    # 1st parameter is the font file
+    # which is present in pygame.
+    # 2nd parameter is size of the font
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    
+    # create a text surface object,
+    # on which text is drawn on it.
+    text = font.render(f'Red Team: {score[0]} Blue Team: {score[1]}', True, BLACK, WHITE)
+    
+    # create a rectangular object for the
+    # text surface object
+    textRect = text.get_rect()
+    textRect.center = (WIDTH // 2, 100)
+    # copying the text surface object
+    # to the display surface object
+    # at the center coordinate.
+    WIN.blit(text, textRect)
+    
