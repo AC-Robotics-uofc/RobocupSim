@@ -119,14 +119,23 @@ def draw_score(window, score):
     
     # create a text surface object,
     # on which text is drawn on it.
-    text = font.render(f'Red Team: {score[0]} Blue Team: {score[1]}', True, BLACK, WHITE)
+    textRed = font.render(f'Red Team: {score[0]}', True, RED, WHITE)
+    textBlue = font.render(f'Blue Team: {score[1]}', True, BLUE, WHITE)
+
     
     # create a rectangular object for the
     # text surface object
-    textRect = text.get_rect()
-    textRect.center = (WIDTH // 2, 100)
+    textRedRect = textRed.get_rect()
+    textRedRect.center = (WIDTH // 2 - 150, 100)
+
+    textBlueRect = textBlue.get_rect()
+    textBlueRect.center = (WIDTH // 2 + 150, 100)
+
     # copying the text surface object
     # to the display surface object
     # at the center coordinate.
-    WIN.blit(text, textRect)
+    WIN.blit(textRed, textRedRect)
+    WIN.blit(textBlue, textBlueRect)
     
+def resetScore():
+    score = [0,0]

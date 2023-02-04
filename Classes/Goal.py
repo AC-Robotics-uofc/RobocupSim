@@ -24,7 +24,7 @@ class Goal:
                 # if ball is going towards the net
                 # idk if it should be less than or EQUAL to but why not
                 if ball.getXSpeed() <= 0:
-                    score [0] +=1
+                    score [1] +=1
                     ball.resetToMiddle()
                     ball.setSpeed([0,0])
                     print(score)
@@ -38,9 +38,12 @@ class Goal:
             if (ball.xpos >= self.xpos) and  (ball.ypos > self.ypos and ball.ypos < self.ypos + self.height):
                 # idk if it should be greater than or EQUAL to but why not
                 if ball.getXSpeed() >= 0:
-                    score [1] +=1
+                    score [0] +=1
                     ball.resetToMiddle()
                     ball.setSpeed([0,0])
                     
                     print(score)
+
+
+    
     
