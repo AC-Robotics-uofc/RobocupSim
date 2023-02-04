@@ -15,7 +15,7 @@ class Goal:
         #not tested
         pygame.draw.rect(win, self.color, (self.xpos, self.ypos, self.width,self.height))
 
-    def scoreGoal(self, ball: Ball):
+    def scoreGoal(self, ball: Ball) -> bool:
         # if goal is on the left
         if self.xpos < 400:
             # if inside the net
@@ -27,7 +27,7 @@ class Goal:
                     score [1] +=1
                     ball.resetToMiddle()
                     ball.setSpeed([0,0])
-                    print(score)
+                    return True
 
                 
         # if goal is on the right
@@ -41,8 +41,9 @@ class Goal:
                     score [0] +=1
                     ball.resetToMiddle()
                     ball.setSpeed([0,0])
+                    return True
+        return False
                     
-                    print(score)
 
 
     

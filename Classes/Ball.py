@@ -35,6 +35,6 @@ class Ball:
         return self.v[0]*math.cos(math.radians(self.v[1]))
     
     def resetToMiddle(self):
-        self.xpos = HEIGHT /2
-        self.ypos = WIDTH /2
+        self.xpos = WIDTH //2
+        self.ypos = HEIGHT //2
 
