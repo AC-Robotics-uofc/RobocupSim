@@ -201,23 +201,23 @@ def algorithm(robot2, robot3, ball, goal):
     
 def control(robot, event, ball):
      if event.type == pygame.TEXTINPUT:
-                if event.text =="w":
+                if event.text =="r":
                     robot.up()
                 elif event.text == "s":
                     robot.down()
 
-                if event.text == "a":
+                if event.text == "y":
                     robot.left()
-                elif event.text == "d":
+                elif event.text == "t":
                     robot.right()
-                if event.text == "q":
+                if event.text == "a":
                     robot.turnLeft()
                     print(getBallDist(robot, ball))
-                elif event.text == "e":
+                elif event.text == "d":
                     robot.turnRight()
-                if event.text == "r":
+                if event.text == "w":
                     robot.foreward()
-                if event.text == "z":
+                if event.text == "q":
                     if getBallDist(robot, ball)< 5:
                         robot.grabBall(ball)
                 elif event.text == "x":
