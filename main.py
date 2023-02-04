@@ -24,7 +24,7 @@ if __name__ == '__main__':
     gameObjs = []
     ball = Ball(400, 400)
     redGoal = Goal(100, 400,GOALWIDTH,GOALHEIGHT,"red",RED)
-    blueGoal = Goal(700, 400,GOALWIDTH,GOALHEIGHT,"blue", BLUE)
+    blueGoal = Goal(WIDTH -100, 400,GOALWIDTH,GOALHEIGHT,"blue", BLUE)
 
     run = True
     moving = False
@@ -35,6 +35,7 @@ if __name__ == '__main__':
     robot_list.append(robot1)
     robot_list.append(robot2)
     robot_list.append(robot3)
+
 
     gameObjs.append(ball)
     gameObjs.append(redGoal)
