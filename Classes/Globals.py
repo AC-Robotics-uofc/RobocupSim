@@ -20,7 +20,7 @@ GREY = (128,128,128)
 TURQUOISE = (64,224,208)
 
 score = [0, 0] # index 0 is red team and index 1 is blue team
-
+stop = False
 
 
 # GLOBAL FUNCTIONS -----------------------------------------------------------------------------------------------------
@@ -46,7 +46,13 @@ def getRBD(robot, ball):#robot ball degree
     elif xDiff>0 and yDiff<0:
         deg = 270
 
-    return round(math.degrees(math.atan(abs(yDiff)/abs(xDiff))))+deg
+    deg = round(math.degrees(math.atan(abs(yDiff)/abs(xDiff))))+deg
+    deg -= 180
+    if(deg < 0):
+        deg += 360
+    return deg
+    #gets angle from positive x axis to hypotenuse 
+    
 # Press the green button in the gutter to run the script.
 def draw_robots(win, robot_list):
     for robot in robot_list:
@@ -67,29 +73,71 @@ def updateBall(robot, ball):
 
 def setDeg(robot, deg):
     if robot.front[2]> deg:
-        robot.turnRight()
+        robot.turnRight(abs(robot.front[2]-deg))
     elif robot.front[2]< deg:
-        robot.turnLeft()
+        robot.turnLeft(abs(robot.front[2]-deg))
 
 
-def algorithm(robot2, robot3, ball, goal):
-    dist = getBallDist(robot2, ball)
-    setDeg(robot2, getRBD(robot2, ball))
-    if (dist>0 and getRBD(robot2, ball)+1>=robot2.getDegree()>=getRBD(robot2, ball)-1):
-        robot2.foreward()
-    if 5>dist:
-        robot2.grabBall(ball)
-    if robot2.hasball:
-        setDeg(robot2, getRBD(robot2, goal))
-        if getRBD(robot2, goal)+1>=robot2.getDegree()>=getRBD(robot2, goal)-1:
-            robot2.throwBall()
+def algorithm(robot, ball, goal):
+    ballDist = getBallDist(robot, ball)
+    ballAngle = getRBD(robot, ball)
+
+    print("ROBOT: x=", robot.front[0], ", y=", robot.front[1])
+    print("BALL: x=", ball.xpos, ", y=", ball.ypos)
+
+    print("rbd = ", ballAngle)
+    print("robot angle = ", robot.front[2])
+    print("robot ball dist = ", ballDist)
+        
+    global stop 
+
+    if stop == True:
+        return
+    if robot.hasball == True:
+        print("MOVING TO GOAL")
+        goalDist = getBallDist(robot, goal)
+        goalAngle = getRBD(robot, goal)
+        print("goal distance = ", goalDist)
+        print("goal deg = ", goalAngle)
+        if (abs(robot.front[2] - goalAngle) <= 5 or 170 <= abs(robot.front[2] - goalAngle) <= 190) and goalDist > 100:
+            print("GOING TOWARDS GOAL")
+            robot.foreward()
+            #move towards the goal 
+        elif goalDist <= 100:
+            print("SHOOTING BALL")
+            robot.throwBall()
+            stop = True
+            #throw the ball then stop moving
+        else:
+            print("TURNING TOWARD GOAL")
+            setDeg(robot, goalAngle)
+    elif ballDist < 5:
+        print("GRABBING BALL")
+        robot.grabBall(ball)
+        #if right at the ball, grab it 
+    elif abs(robot.front[2] - ballAngle) <= 5 or ballAngle <= 10 or ballDist < 15:
+        print("MOVING FOREWARD")
+        print("x = ", robot.front[0], ", y = ", robot.front[1])
+        robot.foreward()
+        #move towards the ball 
+    elif ballAngle % 90 == 0 and ballAngle % 180 != 0:
+        print("TURNING 1")
+        ballAngle -= 180
+        if(ballAngle < 0):
+            ballAngle += 360
+        setDeg(robot, ballAngle)
+        #handle %180 case separately because robot gets confused
+    else:
+        print("TURNING 2")
+        setDeg(robot, ballAngle)
+        #set degree 
     
 def control(robot, event, ball):
      if event.type == pygame.TEXTINPUT:
                 if event.text =="r":
                     robot.up()
                 elif event.text == "s":
-                    robot.down()
+                    robot.backward()
 
                 if event.text == "y":
                     robot.left()

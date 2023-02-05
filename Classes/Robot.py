@@ -41,15 +41,21 @@ class Robot:
         self.xpos = self.xpos - self.speed*math.sin(math.radians(self.front[2]))
         self.ypos = self.ypos- self.speed*math.cos(math.radians(self.front[2]))
         self.updateFront()
-    def turnRight(self):
-        self.front[2] -=self.turn_speed
-        if self.front[2] <0:
-            self.front[2] = 360-self.turn_speed
+
+    def turnRight(self, speed=None):
+        if speed == None or speed > self.turn_speed:
+            speed = self.turn_speed
+        self.front[2] -= speed
+        if self.front[2] < 0:
+            self.front[2] = 360 - speed
         self.updateFront()
-    def turnLeft(self):
-        self.front[2] +=self.turn_speed
+
+    def turnLeft(self, speed=None):
+        if speed == None or speed > self.turn_speed:
+            speed = self.turn_speed
+        self.front[2] += speed
         if self.front[2] >360:
-            self.front[2] = 0+ self.turn_speed
+            self.front[2] = 0+ speed
         self.updateFront()
     def getFront(self):
         return self.front
@@ -59,6 +65,7 @@ class Robot:
     def grabBall(self,ball):
         self.hasball = True
         self.ball = ball
+        #need to figure out how to set this to false when the opposing team grabs the ball
     def getDegree(self):
         return self.front[2]
     def throwBall(self):

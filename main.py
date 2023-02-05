@@ -6,7 +6,7 @@ from Classes.Robot import Robot # you can also import *
 from Classes.Goal import Goal # you can also import *
 from Classes.Ball import Ball # you can also import *
 from Classes.Globals import * # to import all global variables
-
+import time
 
 
 
@@ -76,7 +76,8 @@ if __name__ == '__main__':
                 
             else:#get it to bounce off walls
                 ball.setSpeed([0,0])
-        algorithm(robot1, robot2,ball, blueGoal)
+        algorithm(robot1,ball, blueGoal)
+        # time.sleep(1)
 
 
 
