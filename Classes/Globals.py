@@ -80,7 +80,9 @@ def setDeg(robot, deg):
 
 def algorithm(robot, ball, goal):
     ballDist = getBallDist(robot, ball)
-    ballAngle = getRBD(robot, ball)
+    ballAngle = 0
+    if ballDist != 0:
+        ballDist = getRBD(robot, ball)
 
     print("ROBOT: x=", robot.front[0], ", y=", robot.front[1])
     print("BALL: x=", ball.xpos, ", y=", ball.ypos)
@@ -131,6 +133,7 @@ def algorithm(robot, ball, goal):
         print("TURNING 2")
         setDeg(robot, ballAngle)
         #set degree 
+    updateBall(robot, ball)
     
 def control(robot, event, ball):
      if event.type == pygame.TEXTINPUT:
