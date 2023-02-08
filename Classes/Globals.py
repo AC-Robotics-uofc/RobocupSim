@@ -19,7 +19,6 @@ ORANGE = (255,165, 0)
 GREY = (128,128,128)
 TURQUOISE = (64,224,208)
 
-score = [0, 0] # index 0 is red team and index 1 is blue team
 
 
 
@@ -54,10 +53,7 @@ def draw_robots(win, robot_list):
 def draw(win, robot_list):
     win.fill(WHITE)
     draw_robots(win, robot_list)
-    draw_score(win, score)
     pygame.display.update()
-
-
 def updateBall(robot, ball):
 
     if robot.hasball:
@@ -84,58 +80,7 @@ def algorithm(robot2, robot3, ball, goal):
         if getRBD(robot2, goal)+1>=robot2.getDegree()>=getRBD(robot2, goal)-1:
             robot2.throwBall()
     
-def control(robot, event, ball):
-     if event.type == pygame.TEXTINPUT:
-                if event.text =="r":
-                    robot.up()
-                elif event.text == "s":
-                    robot.down()
 
-                if event.text == "y":
-                    robot.left()
-                elif event.text == "t":
-                    robot.right()
-                if event.text == "a":
-                    robot.turnLeft()
-                    print(getBallDist(robot, ball))
-                elif event.text == "d":
-                    robot.turnRight()
-                if event.text == "w":
-                    robot.foreward()
-                if event.text == "q":
-                    if getBallDist(robot, ball)< 5:
-                        robot.grabBall(ball)
-                elif event.text == "x":
-                    robot.throwBall()
-                updateBall(robot, ball)
                 #print(robot.front[2])
-
-def draw_score(window, score):
-    # create a font object.
-    # 1st parameter is the font file
-    # which is present in pygame.
-    # 2nd parameter is size of the font
-    font = pygame.font.Font('freesansbold.ttf', 32)
-    
-    # create a text surface object,
-    # on which text is drawn on it.
-    textRed = font.render(f'Red Team: {score[0]}', True, RED, WHITE)
-    textBlue = font.render(f'Blue Team: {score[1]}', True, BLUE, WHITE)
-
-    
-    # create a rectangular object for the
-    # text surface object
-    textRedRect = textRed.get_rect()
-    textRedRect.center = (WIDTH // 2 - 150, 100)
-
-    textBlueRect = textBlue.get_rect()
-    textBlueRect.center = (WIDTH // 2 + 150, 100)
-
-    # copying the text surface object
-    # to the display surface object
-    # at the center coordinate.
-    WIN.blit(textRed, textRedRect)
-    WIN.blit(textBlue, textBlueRect)
-    
-def resetScore():
-    score = [0,0]
+     #if event.type == pygame.KEYUP:
+      #          if

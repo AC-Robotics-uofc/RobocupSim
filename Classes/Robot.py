@@ -1,7 +1,8 @@
 import pygame
 import math
+from Classes.Globals import * # to import all global variables
 class Robot:
-    def __init__(self, speed,turn_speed, xpos, ypos, color,radius):
+    def __init__(self, speed,turn_speed, xpos, ypos, color,radius, directions):
         self.turn_speed = turn_speed #deg per frame
         self.xpos = xpos
         self.ypos = ypos
@@ -14,7 +15,8 @@ class Robot:
         self.accel = 1
         self.front = [xpos,ypos+radius, 0]#initially looks down at 0 deg
         self.power = 0
-
+        self.directions = directions
+    
     def get_turn_speed(self):
         return self.turn_speed
     def up(self):
@@ -78,5 +80,70 @@ class Robot:
         #try give claw to indicate front
         #Spygame.draw.rect(win, self.color,())
 
+    def control(robot, event, ball): # control checks which keys are pressed and updates the robot's movement booleans
+        # 0 forward
+        # 1 backward
+        # 2 left
+        # 3 right
+        # 4 turn left
+        # 5 turn right
+        # 6 up
+        # 7 down
+        # F and B are respective to the front of the robot, while all others are headless
+     if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_f:
+                    robot.directions[0] = True
+                elif event.key == pygame.K_b:
+                    robot.directions[1] = True
+                if event.key == pygame.K_a:
+                    robot.directions[2] = True
+                elif event.key == pygame.K_d:
+                    robot.directions[3] = True
+                if event.key == pygame.K_z:
+                    robot.directions[4] = True
+                elif event.key == pygame.K_x:
+                    robot.directions[5] = True
+                if event.key == pygame.K_w:
+                    robot.directions[6] = True
+                elif event.key == pygame.K_s:
+                    robot.directions[7] = True
+     if event.type == pygame.KEYUP:
+                if event.key == pygame.K_f:
+                    robot.directions[0] = False
+                elif event.key == pygame.K_b:
+                    robot.directions[1] = False
+                if event.key == pygame.K_a:
+                    robot.directions[2] = False
+                elif event.key == pygame.K_d:
+                    robot.directions[3] = False
+                if event.key == pygame.K_z:
+                    robot.directions[4] = False
+                elif event.key == pygame.K_x:
+                    robot.directions[5] = False
+                if event.key == pygame.K_w:
+                    robot.directions[6] = False
+                elif event.key == pygame.K_s:
+                    robot.directions[7] = False
+    def drive(robot):
+        if (robot.directions[0] == True):
+            robot.foreward()
+        if (robot.directions[1] == True):
+            robot.backward()
+        if (robot.directions[2] == True):
+            robot.left()
+        if (robot.directions[3] == True):
+            robot.right()
+        if (robot.directions[4] == True):
+            robot.turnLeft()
+        if (robot.directions[5] == True):
+            robot.turnRight()
+        if (robot.directions[6] == True):
+            robot.up()
+        if (robot.directions[7] == True):
+            robot.down()
+        
+
     def __lt__(self, other):
         return False
+
+    
